@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Create Harvest Schedule</h1>
+    <form method="post" class="form-group">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Save</button>
+    </form>
+    <a href="{% url 'crop_detail' pk=crop.pk %}" class="btn">Back to Crop</a>
+{% endblock %}

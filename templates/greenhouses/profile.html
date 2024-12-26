@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Профиль пользователя</h1>
+    <p><strong>Имя пользователя:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    {% if user.groups.exists %}
+        <p><strong>Группа:</strong> {{ user.groups.first.name }}</p>
+    {% else %}
+        <p><strong>Группа:</strong> Не определена</p>
+    {% endif %}
+    <a href="{% url 'index' %}" class="btn">На главную страницу</a>
+{% endblock %}

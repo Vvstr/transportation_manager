@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ greenhouse.name }}</h1>
+    <h2>Выращиваемые культуры</h2>
+    <ul>
+        {% for crop in crops %}
+            <li><a href="{% url 'crop_detail' pk=crop.pk %}">{{ crop.name }}</a></li>
+        {% empty %}
+            <li>Культуры не найдены</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'create_crop' greenhouse_pk=greenhouse.pk %}" class="btn">Создать культуру</a>
+    <a href="{% url 'index' %}" class="btn">На главную страницу</a>
+{% endblock %}

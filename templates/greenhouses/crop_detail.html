@@ -1,0 +1,64 @@
+<!-- crop_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ crop.name }}</h1>
+
+    <h2>Расписания посева</h2>
+    {% if can_edit %}
+        <a href="{% url 'create_sowing_schedule' crop_pk=crop.pk %}" class="btn">Создать расписание посева</a>
+    {% endif %}
+    <ul>
+        {% for schedule in sowing_schedules %}
+            <li>
+                Запланировано: {{ schedule.planned_date }}, Фактически: {{ schedule.actual_date }}, Ресурсы: {{ schedule.resources_used }}, Урожай: {{ schedule.yield_volume }}
+            </li>
+        {% empty %}
+            <li>Расписаний посева нет.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Расписания полива</h2>
+    {% if can_edit %}
+        <a href="{% url 'create_irrigation_schedule' crop_pk=crop.pk %}" class="btn">Создать расписание полива</a>
+    {% endif %}
+    <ul>
+        {% for schedule in irrigation_schedules %}
+            <li>
+                Запланировано: {{ schedule.planned_date }}, Фактически: {{ schedule.actual_date }}, Ресурсы: {{ schedule.resources_used }}
+            </li>
+        {% empty %}
+            <li>Расписаний полива нет.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Расписания удобрений</h2>
+    {% if can_edit %}
+        <a href="{% url 'create_fertilization_schedule' crop_pk=crop.pk %}" class="btn">Создать расписание удобрений</a>
+    {% endif %}
+    <ul>
+        {% for schedule in fertilization_schedules %}
+            <li>
+                Запланировано: {{ schedule.planned_date }}, Фактически: {{ schedule.actual_date }}, Ресурсы: {{ schedule.resources_used }}
+            </li>
+        {% empty %}
+            <li>Расписаний удобрений нет.</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Расписания сбора урожая</h2>
+    {% if can_edit %}
+        <a href="{% url 'create_harvest_schedule' crop_pk=crop.pk %}" class="btn">Создать расписание сбора урожая</a>
+    {% endif %}
+    <ul>
+        {% for schedule in harvest_schedules %}
+            <li>
+                Запланировано: {{ schedule.planned_date }}, Фактически: {{ schedule.actual_date }}, Ресурсы: {{ schedule.resources_used }}
+            </li>
+        {% empty %}
+            <li>Расписаний сбора урожая нет.</li>
+        {% endfor %}
+    </ul>
+
+        <a href="{% url 'index' %}" class="btn">На главную страницу</a>
+{% endblock %}

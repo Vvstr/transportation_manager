@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Теплицы</h1>
+    <a href="{% url 'create_greenhouse' %}" class="btn">Создать теплицу</a>
+    <ul>
+        {% for greenhouse in greenhouses %}
+            <li>
+                <a href="{% url 'greenhouse_detail' pk=greenhouse.pk %}">{{ greenhouse.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Список выращиваемых культур</h2>
+    <ul>
+        {% for crop in unique_crops %}
+            <li>
+                <a href="{% url 'crop_detail' pk=crop.pk %}">{{ crop.name }}</a>
+            </li>
+        {% empty %}
+            <li>Культуры не найдены</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Агрономы</h2>
+    <a href="{% url 'agronomists' %}" class="btn">Список работающих агрономов</a>
+
+    <!-- Добавляем кнопку для просмотра профиля текущего пользователя -->
+    {% if current_user.is_authenticated %}
+        <a href="{% url 'profile' %}" class="btn">Мой профиль</a>
+    {% endif %}
+    <form action="{% url 'logout' %}" method="post" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn">Выйти</button>
+    </form>
+
+{% endblock %}

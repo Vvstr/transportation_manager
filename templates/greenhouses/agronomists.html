@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Список работающих агрономов</h1>
+    <ul>
+        {% for agronomist in agronomists %}
+            <li>
+                <strong>{{ agronomist.username }}</strong>
+                {% if agronomist.greenhouses.exists %}
+                    <ul>
+                        {% for greenhouse in agronomist.greenhouses.all %}
+                            <li><a href="{% url 'greenhouse_detail' pk=greenhouse.pk %}">{{ greenhouse.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>Теплицы не закреплены за этим агрономом.</p>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'index' %}" class="btn">На главную страницу</a>
+{% endblock %}
